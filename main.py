@@ -9,9 +9,9 @@ from google import genai
 
 app = Flask(__name__)
 
-LINE_CHANNEL_ACCESS_TOKEN = os.environ["AsxmHm9evu7N0iz8nh3shkMIxx3jqOIbCiRZQNSNc7eDNzDbi5ppl8cPrFGpzQjkGa3K3zNddZaTRCTMfYaEnEPBg63cv9oMzxnBHOJ4EzH97PzBIsYA94UZ03FeeycNETzwLLjnfU4Qlv+ppZvLeQdB04t89/1O/w1cDnyilFU="]
-LINE_CHANNEL_SECRET = os.environ["3df11ff4746162900267ffc1d177e212"]
-GEMINI_API_KEY = os.environ["AIzaSyB2PA_ukUCZ71SosFLsjgLg-9bjpeKf7aA"]
+LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
+LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
+GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
