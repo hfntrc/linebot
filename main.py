@@ -25,14 +25,22 @@ def home():
 
 @app.route("/models", methods=["GET"])
 def list_models():
-    models = gemini_client.models.list()
-    output = []
+    try:
+        models = gemini_client.models.list()
+        output = []
 
-    for model in models:
-        methods = getattr(model, "supported_actions", None) or getattr(model, "supported_generation_methods", None)
-        output.append(f"{model.name} | {methods}")
+        for model in models:
+            name = getattr(model, "name", "NO_NAME")
+            methods = getattr(model, "supported_generation_methods", None)
+            actions = getattr(model, "supported_actions", None)
 
-    return "<br>".join(output), 200
+            output.append(f"{name} | methods={methods} | actions={actions}")
+
+        return "<br>".join(output), 200
+
+    except Exception as e:
+        print("List models error:", e)
+        return f"List models error: {e}", 500
 
 
 @app.route("/callback", methods=["POST"])
