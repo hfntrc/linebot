@@ -23,6 +23,17 @@ gemini_client = genai.Client(api_key=GEMINI_API_KEY)
 def home():
     return "Bot is running", 200
 
+@app.route("/models", methods=["GET"])
+def list_models():
+    models = gemini_client.models.list()
+    output = []
+
+    for model in models:
+        methods = getattr(model, "supported_actions", None) or getattr(model, "supported_generation_methods", None)
+        output.append(f"{model.name} | {methods}")
+
+    return "<br>".join(output), 200
+
 
 @app.route("/callback", methods=["POST"])
 def callback():
