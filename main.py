@@ -23,26 +23,6 @@ gemini_client = genai.Client(api_key=GEMINI_API_KEY)
 def home():
     return "Bot is running", 200
 
-@app.route("/models", methods=["GET"])
-def list_models():
-    try:
-        models = gemini_client.models.list()
-        output = []
-
-        for model in models:
-            name = getattr(model, "name", "NO_NAME")
-            methods = getattr(model, "supported_generation_methods", None)
-            actions = getattr(model, "supported_actions", None)
-
-            output.append(f"{name} | methods={methods} | actions={actions}")
-
-        return "<br>".join(output), 200
-
-    except Exception as e:
-        print("List models error:", e)
-        return f"List models error: {e}", 500
-
-
 @app.route("/callback", methods=["POST"])
 def callback():
     signature = request.headers.get("X-Line-Signature")
@@ -74,7 +54,7 @@ def translate(text):
 """
 
     response = gemini_client.models.generate_content(
-        model="gemini-1.5-flash-latest",
+        model="models/gemini-2.5-flash",
         contents=prompt,
     )
 
